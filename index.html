@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ziggy ($ZIGGY)">
+    <title>Ziggy Splash Screen</title>
+
+    <style>
+        /* Load the font from GitHub */
+        @font-face {
+            font-family: 'Euclid Circular B';
+            src: url('https://raw.githubusercontent.com/ziggythepanda/ziggywebsite/main/Fonts/Euclid%20Circular%20B%20Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* General Body Styling */
+        body {
+            margin: 0;
+            font-family: 'Euclid Circular B', sans-serif; /* Apply the font */
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            overflow: hidden; /* Prevent scrolling */
+            position: relative;
+            padding: 10px; /* Add padding for mobile */
+        }
+
+        /* Centered Content */
+        .content {
+            text-align: center;
+            position: relative; /* To position the bubble relative to this container */
+            width: 100%; /* Allow full width */
+            max-width: 600px; /* Limit width on larger screens */
+        }
+
+        /* Coming Soon Message */
+        h2 {
+            font-size: 58px; /* Slightly smaller font size for mobile */
+            font-weight: 600; /* Medium bold text */
+            margin-top: 10px; /* Reduce space above */
+            background: linear-gradient(90deg, #4bb6c0, #5b1692); /* Lighter gradient background */
+            -webkit-background-clip: text; /* Clip background to text */
+            -webkit-text-fill-color: transparent; /* Fill text with transparent color */
+            animation: fadeIn 3s ease; /* Fade-in animation */
+            letter-spacing: 2px; /* Add some space between letters */
+            line-height: 1.2; /* Increase line height for better readability */
+        }
+
+        .about-image {
+            max-width: 300px;
+            height: auto;
+            cursor: pointer; /* Change cursor to pointer */
+            transition: transform 0.2s ease; /* Add transition for the shake effect */
+            margin-top: 10px; /* Space above the image */
+        }
+
+        /* Button Container */
+        .button-container {
+            margin-top: 10px; /* Reduce space above buttons */
+            display: flex;
+            justify-content: center; /* Center buttons horizontally */
+            gap: 20px; /* Space between buttons */
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+        }
+
+        /* Button Styling */
+        .button {
+            width: 180px; /* Increased width for buttons */
+            position: relative;
+            overflow: hidden; /* Hide the fill effect */
+            color: white; /* Text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 15px; /* Padding */
+            font-size: 16px; /* Larger font size for better readability */
+            cursor: not-allowed; /* Change cursor to indicate not clickable */
+            background: linear-gradient(90deg, #6a11cb, #2575fc); /* Purple to blue gradient */
+            transition: transform 0.2s; /* Transition for button lift effect */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+            text-align: center; /* Center text within button */
+        }
+
+        /* Speech Bubble */
+        .speech-bubble {
+            display: none; /* Initially hidden */
+            position: absolute;
+            bottom: 100%; /* Position above the image */
+            left: 50%;
+            transform: translate(-50%, -10px); /* Adjust vertical position */
+            background-color: #ffcc00; /* Bright background color */
+            color: #121212;
+            padding: 10px 15px; /* Add padding */
+            border-radius: 10px; /* Rounded edges */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Drop shadow */
+            white-space: nowrap; /* Prevent text wrapping */
+            z-index: 1;
+            font-size: 16px; /* Font size */
+            animation: slideIn 0.3s ease; /* Slide-in animation */
+            margin-bottom: 10px; /* Space below the speech bubble */
+        }
+
+        /* Speech Bubble Tail */
+        .speech-bubble::after {
+            content: '';
+            top: 100%; /* Position at the bottom of the bubble */
+            left: 50%;
+            margin-left: -10px; /* Center the tail */
+            border-width: 10px; /* Tail size */
+            border-style: solid;
+            border-color: #ffcc00 transparent transparent transparent; /* Tail color */
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Slide-in Animation for the Speech Bubble */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -10px);
+            }
+        }
+
+        /* Shake Animation */
+        @keyframes shake {
+            0% { transform: translate(0); }
+            25% { transform: translate(-5px); }
+            50% { transform: translate(5px); }
+            75% { transform: translate(-5px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Responsive Design Adjustments */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 48px; /* Adjust font size for smaller screens */
+            }
+
+            .button {
+                width: 150px; /* Maintain button width for mobile */
+                font-size: 16px; /* Adjust font size for buttons */
+            }
+
+            .about-image {
+                max-width: 80%; /* Allow image to scale down */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Centered Content -->
+    <div class="content">
+        <h2>COMING SOON</h2>
+        <div class="speech-bubble" id="speech-bubble">Hey, that tickles!</div> <!-- Positioned above the image -->
+        <img src="https://raw.githubusercontent.com/ziggythepanda/ziggywebsite/refs/heads/main/IMAGES/LOGO%20-%20transparent.png" 
+             alt="Ziggy Token" class="about-image" id="panda-image">
+        
+
+
+    <script>
+        // Add click event listener to the panda image
+        const pandaImage = document.getElementById('panda-image');
+        const speechBubble = document.getElementById('speech-bubble');
+        let clickCount = 0; // Initialize click counter
+
+        pandaImage.addEventListener('click', function() {
+            // Increment the click count
+            clickCount += 1;
+
+            // Shake the image
+            pandaImage.style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                pandaImage.style.animation = ''; // Reset animation
+            }, 500);
+
+            // Show the speech bubble
+            speechBubble.style.display = 'block';
+
+            // Change speech bubble text on the tenth click
+            if (clickCount === 10) {
+                speechBubble.textContent = 'SERIOUSLY, STOP!';
+            }
+
+            // Hide the speech bubble after 2 seconds
+            setTimeout(() => {
+                speechBubble.style.display = 'none'; // Hide after a short delay
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
